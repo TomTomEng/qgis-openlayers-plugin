@@ -35,8 +35,9 @@ from weblayers.yahoo_maps import OlYahooStreetLayer, OlYahooHybridLayer, OlYahoo
 from weblayers.bing_maps import OlBingRoadLayer, OlBingAerialLayer, OlBingAerialLabelledLayer
 from weblayers.apple_maps import OlAppleiPhotoMapLayer
 from weblayers.osm_stamen import OlOSMStamenTonerLayer, OlOSMStamenWatercolorLayer, OlOSMStamenTerrainLayer
-import os.path
+from weblayers.tomtom_lbs import TomTomLbsBaseLayer, TomTomLbsHDTrafficLayer
 
+import os
 
 class OpenlayersPlugin:
 
@@ -99,6 +100,9 @@ class OpenlayersPlugin:
         self._olLayerTypeRegistry.register(OlOSMStamenTerrainLayer())
 
         self._olLayerTypeRegistry.register(OlAppleiPhotoMapLayer())
+
+        self._olLayerTypeRegistry.register(TomTomLbsBaseLayer())
+        self._olLayerTypeRegistry.register(TomTomLbsHDTrafficLayer())
 
         for group in self._olLayerTypeRegistry.groups():
             groupMenu = group.menu()
