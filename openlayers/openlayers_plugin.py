@@ -30,12 +30,13 @@ from openlayers_layer import OpenlayersLayer
 from openlayers_plugin_layer_type import OpenlayersPluginLayerType
 from weblayers.weblayer_registry import WebLayerTypeRegistry
 from weblayers.google_maps import OlGooglePhysicalLayer, OlGoogleStreetsLayer, OlGoogleHybridLayer, OlGoogleSatelliteLayer
-from weblayers.osm import OlOpenStreetMapLayer, OlOpenCycleMapLayer, OlOCMLandscapeLayer, OlOCMPublicTransportLayer
-from weblayers.yahoo_maps import OlYahooStreetLayer, OlYahooHybridLayer, OlYahooSatelliteLayer
+from weblayers.osm import OlOpenStreetMapLayer, OlOpenCycleMapLayer, OlOCMLandscapeLayer, OlOCMPublicTransportLayer, OlOSMHumanitarianDataModelLayer
 from weblayers.bing_maps import OlBingRoadLayer, OlBingAerialLayer, OlBingAerialLabelledLayer
 from weblayers.apple_maps import OlAppleiPhotoMapLayer
 from weblayers.osm_stamen import OlOSMStamenTonerLayer, OlOSMStamenWatercolorLayer, OlOSMStamenTerrainLayer
 from weblayers.tomtom_lbs import TomTomLbsBaseLayer, TomTomLbsHDTrafficLayer
+from weblayers.map_quest import OlMapQuestOSMLayer, OlMapQuestOpenAerialLayer
+import os.path
 
 import os
 
@@ -86,10 +87,7 @@ class OpenlayersPlugin:
         self._olLayerTypeRegistry.register(OlOpenCycleMapLayer())
         self._olLayerTypeRegistry.register(OlOCMLandscapeLayer())
         self._olLayerTypeRegistry.register(OlOCMPublicTransportLayer())
-
-        self._olLayerTypeRegistry.register(OlYahooStreetLayer())
-        self._olLayerTypeRegistry.register(OlYahooHybridLayer())
-        self._olLayerTypeRegistry.register(OlYahooSatelliteLayer())
+        self._olLayerTypeRegistry.register(OlOSMHumanitarianDataModelLayer())
 
         self._olLayerTypeRegistry.register(OlBingRoadLayer())
         self._olLayerTypeRegistry.register(OlBingAerialLayer())
@@ -98,6 +96,9 @@ class OpenlayersPlugin:
         self._olLayerTypeRegistry.register(OlOSMStamenTonerLayer())
         self._olLayerTypeRegistry.register(OlOSMStamenWatercolorLayer())
         self._olLayerTypeRegistry.register(OlOSMStamenTerrainLayer())
+
+        self._olLayerTypeRegistry.register(OlMapQuestOSMLayer())
+        self._olLayerTypeRegistry.register(OlMapQuestOpenAerialLayer())
 
         self._olLayerTypeRegistry.register(OlAppleiPhotoMapLayer())
 
@@ -117,9 +118,9 @@ class OpenlayersPlugin:
         self.iface.removePluginWebMenu("_tmp", self._actionAbout)
 
         # Register plugin layer type
-        pluginLayerType = OpenlayersPluginLayerType(self.iface, self.setReferenceLayer,
+        self.pluginLayerType = OpenlayersPluginLayerType(self.iface, self.setReferenceLayer,
                                                     self._olLayerTypeRegistry)
-        QgsPluginLayerRegistry.instance().addPluginLayerType(pluginLayerType)
+        QgsPluginLayerRegistry.instance().addPluginLayerType(self.pluginLayerType)
 
     def unload(self):
         self.iface.webMenu().removeAction(self._olMenu.menuAction())
@@ -170,17 +171,15 @@ class OpenlayersPlugin:
         mapCanvas = self.iface.mapCanvas()
         # On the fly
         if QGis.QGIS_VERSION_INT >= 20300:
-            mapCanvas.mapSettings().setCrsTransformEnabled(True)
+            mapCanvas.setCrsTransformEnabled(True)
         else:
             mapCanvas.mapRenderer().setProjectionsEnabled(True)
         canvasCrs = self.canvasCrs()
         if canvasCrs != coordRefSys:
-            coodTrans = QgsCoordinateTransform(canvasCrs, coordRefSys)
+            coordTrans = QgsCoordinateTransform(canvasCrs, coordRefSys)
             extMap = mapCanvas.extent()
-            extMap = coodTrans.transform(extMap, QgsCoordinateTransform.ForwardTransform)
+            extMap = coordTrans.transform(extMap, QgsCoordinateTransform.ForwardTransform)
             if QGis.QGIS_VERSION_INT >= 20300:
-                #mapCanvas.mapRenderer().setDestinationCrs(coordRefSys)
-                #mapCanvas.mapSettings().setDestinationCrs(coordRefSys)
                 mapCanvas.setDestinationCrs(coordRefSys)
             elif QGis.QGIS_VERSION_INT >= 10900:
                 mapCanvas.mapRenderer().setDestinationCrs(coordRefSys)
