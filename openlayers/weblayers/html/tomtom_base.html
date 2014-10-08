@@ -28,16 +28,14 @@
                 maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
             });
 
-            var api_key = "1e2099c7-eea9-476b-aac9-b20dc7100af1";
+            var api_key = "dvbfcb88hkrje9ur2fs84uxn";
             var tomtom_layer = new OpenLayers.Layer.XYZ(
                 "TomTom base layer", 
                 [
-                    "http://a.routes.tomtom.com/lbs/map/1/basic/${z}/${x}/${y}/" + api_key + ";v=3;m=png",
-                    "http://b.routes.tomtom.com/lbs/map/1/basic/${z}/${x}/${y}/" + api_key + ";v=3;m=png",
-                    "http://c.routes.tomtom.com/lbs/map/1/basic/${z}/${x}/${y}/" + api_key + ";v=3;m=png",
-                    "http://d.routes.tomtom.com/lbs/map/1/basic/${z}/${x}/${y}/" + api_key + ";v=3;m=png",
-                    "http://e.routes.tomtom.com/lbs/map/1/basic/${z}/${x}/${y}/" + api_key + ";v=3;m=png",
-                    "http://f.routes.tomtom.com/lbs/map/1/basic/${z}/${x}/${y}/" + api_key + ";v=3;m=png",
+                    "http://a.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://b.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://c.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://d.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
                 ],
                 {
                     eventListeners: {
