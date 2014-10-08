@@ -22,21 +22,20 @@ email                : pka at sourcepole.ch
 
 from weblayer import WebLayer3857
 
-
 class TomTomLbsLayer(WebLayer3857):
 
     emitsLoadEnd = True
 
-    def __init__(self, name, html, icon):
-        WebLayer3857.__init__(self, groupName="TomTom LBS", groupIcon=icon,
+    def __init__(self, name, html):
+        WebLayer3857.__init__(self, groupName='TomTom LBS', groupIcon='tomtom_icon.png',
                               name=name, html=html)
 
 class TomTomLbsBaseLayer(TomTomLbsLayer):
 
     def __init__(self):
-        TomTomLbsLayer.__init__(self, name='TomTom Base layer', html='tomtom_base.html', icon='tomtom_icon.png')
+        TomTomLbsLayer.__init__(self, name='TomTom Base layer', html='tomtom_base.html')
 
 class TomTomLbsHDTrafficLayer(TomTomLbsLayer):
 
     def __init__(self):
-        TomTomLbsLayer.__init__(self, name='TomTom HDTraffic layer', html='tomtom_traffic.html', icon='tomtom_hdtraffic_icon.png')
+        TomTomLbsLayer.__init__(self, name='TomTom HDTraffic layer', html='tomtom_traffic.html')
