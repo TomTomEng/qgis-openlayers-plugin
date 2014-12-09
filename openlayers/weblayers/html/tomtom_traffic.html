@@ -28,15 +28,15 @@
                 maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
             });
 
-            var api_key = "dvbfcb88hkrje9ur2fs84uxn";
+            var api_key = "7ryevgjnjnra9pq3dfakvhs3";
 
             var tomtom_traffic_layer = new OpenLayers.Layer.XYZ(
                 "TomTom traffic layer", 
                 [
-                    "http://a.api.internal.tomtom.com/lbs/map/3/traffic/s2/${z}/${x}/${y}.png?key=" + api_key,
-                    "http://b.api.internal.tomtom.com/lbs/map/3/traffic/s2/${z}/${x}/${y}.png?key=" + api_key,
-                    "http://c.api.internal.tomtom.com/lbs/map/3/traffic/s2/${z}/${x}/${y}.png?key=" + api_key,
-                    "http://d.api.internal.tomtom.com/lbs/map/3/traffic/s2/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://a.api.tomtom.com/lbs/map/3/traffic/s3/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://b.api.tomtom.com/lbs/map/3/traffic/s3/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://c.api.tomtom.com/lbs/map/3/traffic/s3/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://d.api.tomtom.com/lbs/map/3/traffic/s3/${z}/${x}/${y}.png?key=" + api_key,
                 ],
                 {
                     eventListeners: {
@@ -54,10 +54,10 @@
             var tomtom_layer = new OpenLayers.Layer.XYZ(
                 "TomTom base layer", 
                 [
-                    "http://a.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
-                    "http://b.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
-                    "http://c.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
-                    "http://d.api.internal.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://a.api.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://b.api.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://c.api.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
+                    "http://d.api.tomtom.com/lbs/map/3/basic/1/${z}/${x}/${y}.png?key=" + api_key,
                 ],
                 {
                     eventListeners: {
